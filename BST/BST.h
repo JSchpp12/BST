@@ -14,7 +14,8 @@ public:
 private: 
 	Node* rootNode; 
 	void _createRoot(string input);
-	Node _browseDown(Node currentNode); 
+	//Node _browseDown(Node currentNode); 
+	void _search(string in_key); 
 };
 
 

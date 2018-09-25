@@ -7,6 +7,7 @@ class Node
 public:
 	string key;
 	int counter;
+	Node* parent; 
 	Node* leftChild;
 	Node* rightChild;
 	Node(string);
