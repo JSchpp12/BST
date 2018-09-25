@@ -9,11 +9,12 @@ public:
 	BST();
 	~BST();
 	void Insert(string input); 
+	void List(); 
 
 private: 
 	Node* rootNode; 
 	void _createRoot(string input);
-
+	Node _browseDown(Node currentNode); 
 };
 
 
