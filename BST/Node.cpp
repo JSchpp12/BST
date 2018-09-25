@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "Node.h"
 
+Node::Node()
+{
+
+}
 
 Node::Node(string in_key)
 {
@@ -8,6 +12,13 @@ Node::Node(string in_key)
 
 	//should be 1 since it is new 
 	counter = 1; 
+}
+
+Node::Node(string in_key, Node* parentNode)
+{
+	key = in_key; 
+	counter = 1; 
+	parent = parentNode; 
 }
 
 

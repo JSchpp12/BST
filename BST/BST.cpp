@@ -12,28 +12,65 @@ BST::~BST()
 }
 
 //public methods 
-void BST::Insert(string input)
+void BST::Insert(string in_key)
 {
-	bool cont = false; 
-	Node* nextNode; 
+	bool cont = false;
+	bool done = false; 
+	bool found; 
+	Node* currentNode;
 
 	//need to search first 
-
-	if (rootNode != nullptr)
+	found = _search(in_key, true);
+	//if not found, need to make a new node 
+	if (found = false) 
 	{
-		nextNode = rootNode->leftChild; 
-		//the root node exsists, need to find first open spot 
-		while (cont == false)
+		if (rootNode != nullptr)
 		{
-			if (nextNode = nullptr)
+			currentNode = rootNode; 
+			while (done == false)
 			{
-				
+				if (in_key > currentNode->key)
+				{
+					if (currentNode->rightChild = nullptr)
+					{
+						//this is empty spot
+						Node newNode(in_key, currentNode); 
+						//store new node in array 
+						nodeStorage[nodeStorage_index] = newNode; 
+						nodeStorage_index++; 
+
+						done = true; 
+					}
+					else 
+					{
+						//not an empty spot need to keep looking 
+						currentNode = currentNode->rightChild; 
+					}
+				}
+				else if (in_key < currentNode->key)
+				{
+					if (currentNode->leftChild = nullptr)
+					{
+						//this is an empty spot
+						Node newNode(in_key, currentNode); 
+						//store new node in array 
+						nodeStorage[nodeStorage_index] = newNode; 
+						nodeStorage_index++; 
+
+						done = true; 
+					}
+					else
+					{
+						//need to keep looking for empty spot
+						currentNode = currentNode->leftChild; 
+					}
+				}
 			}
 		}
-	}
-	else
-	{
-		this->_createRoot(input); 
+		else
+		{
+			this->_createRoot(in_key);
+		}
 	}
 }
 
@@ -63,20 +100,33 @@ Node BST::_browseDown(Node currentNode)
 }
 */
 
-void BST::_search(string in_key)
+bool BST::_search(string in_key, bool call_internal)
 {
-	bool done = false; 
-	Node* currentNode; 
+	bool done = false;
+	bool found;
+	Node* currentNode;
 	if (rootNode != nullptr)
 	{
-		currentNode = rootNode; 
+		currentNode = rootNode;
 		while (done == false)
 		{
 			if (currentNode->key == in_key)
 			{
 				//found node
-				cout << in_key << currentNode->counter; 
-				done = true; 
+				if (call_internal == true)
+				{
+					//called from insert method, so add 1 to found node 
+					currentNode->counter = currentNode->counter + 1;
+					done = true;
+					found = true;
+				}
+				else
+				{
+					//called from search command 
+					cout << in_key << currentNode->counter;
+					done = true;
+					found = true;
+				}
 			}
 			else if (in_key > currentNode->key)
 			{
@@ -87,25 +137,29 @@ void BST::_search(string in_key)
 				else
 				{
 					//fell off tree -- not found 
-					cout << in_key << "0"; 
-					
+					cout << in_key << "0";
+					done = true;
+					found = false;
 				}
 			}
 			else if (in_key < currentNode->key)
 			{
 				if (currentNode->rightChild != nullptr)
 				{
-					currentNode = currentNode->rightChild; 
+					currentNode = currentNode->rightChild;
 				}
-				else 
+				else
 				{
 					//fell off the tree -- not found 
 					cout << in_key << "0";
-					done = true; 
+					done = true;
+					found = false;
 				}
 			}
 		}
 	}
+	return found;
+}
 	/*
 	bool found = false; 
 	Node* currentNode; 
@@ -164,4 +218,4 @@ void BST::_search(string in_key)
 		cout << "Tree is empty"; 
 	}
 	*/ 
-}
+//}

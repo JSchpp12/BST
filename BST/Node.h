@@ -10,7 +10,9 @@ public:
 	Node* parent; 
 	Node* leftChild;
 	Node* rightChild;
+	Node(); 
 	Node(string);
+	Node(string in_key, Node* parentNode); 
 	~Node();
 };
 
