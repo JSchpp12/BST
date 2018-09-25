@@ -35,7 +35,10 @@ void BST::Insert(string in_key)
 					{
 						//this is empty spot
 						Node newNode(in_key, currentNode); 
-						//store new node in array 
+
+						//set child pointer to the new node
+						currentNode->rightChild = &newNode; 
+						//store the new node
 						nodeStorage[nodeStorage_index] = newNode; 
 						nodeStorage_index++; 
 
@@ -54,6 +57,7 @@ void BST::Insert(string in_key)
 						//this is an empty spot
 						Node newNode(in_key, currentNode); 
 						//store new node in array 
+						currentNode->leftChild = &newNode; 
 						nodeStorage[nodeStorage_index] = newNode; 
 						nodeStorage_index++; 
 
@@ -86,19 +90,16 @@ void BST::List()
 	}
 }
 
+void BST::Search(string in_key)
+{
+	_search(in_key, false); 
+}
+
 //private methods 
 void BST::_createRoot(string input) 
 {
 	this->rootNode = new Node(input); 
 }
-
-/*
-Node BST::_browseDown(Node currentNode)
-{
-	//this will get child node of the input node 
-	return 
-}
-*/
 
 bool BST::_search(string in_key, bool call_internal)
 {

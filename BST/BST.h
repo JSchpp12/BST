@@ -9,16 +9,16 @@ class BST
 public:
 	BST();
 	~BST();
-	list<Node> nodeList; 
-	Node nodeStorage[100]; 
+
 	int nodeStorage_index = 0; 
 	void Insert(string input); 
 	void List(); 
+	void Search(string in_key); 
 
 private: 
+	Node nodeStorage[100];
 	Node* rootNode; 
 	void _createRoot(string input);
-	//Node _browseDown(Node currentNode); 
 	bool _search(string in_key, bool call_internal); 
 };
 
