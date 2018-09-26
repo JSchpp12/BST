@@ -20,7 +20,7 @@ void BST::Insert(string in_key)
 	Node* currentNode;
 
 	//need to search first 
-	found = _search(in_key, true);
+	found = _search(in_key, true, false);
 	//if not found, need to make a new node 
 	if (found == false) 
 	{
@@ -82,7 +82,7 @@ void BST::List()
 {
 	if (rootNode != nullptr)
 	{
-
+		_traverse(rootNode); 
 	}
 	else
 	{
@@ -92,7 +92,12 @@ void BST::List()
 
 void BST::Search(string in_key)
 {
-	_search(in_key, false); 
+	_search(in_key, false, false); 
+}
+
+void BST::Delete(string in_key)
+{
+
 }
 
 //private methods 
@@ -102,7 +107,7 @@ void BST::_createRoot(string input)
 	this->rootNode = new Node(input); 
 }
 
-bool BST::_search(string in_key, bool call_internal)
+bool BST::_search(string in_key, bool call_internal, bool call_delete)
 {
 	cout << "Searching..."; 
 	bool done = false;
@@ -125,7 +130,13 @@ bool BST::_search(string in_key, bool call_internal)
 						done = true;
 						found = true;
 					}
-					else
+					else if (call_delete == true)
+					{
+						currentNode->counter--; 
+						done = true; 
+						found = true; 
+					}
+					else 
 					{
 						//called from search command 
 						cout << in_key << currentNode->counter;
@@ -142,7 +153,7 @@ bool BST::_search(string in_key, bool call_internal)
 					else
 					{
 						//fell off tree -- not found 
-						cout << in_key << "0";
+						cout << in_key << "0\n";
 						done = true;
 						found = false;
 					}
@@ -156,7 +167,7 @@ bool BST::_search(string in_key, bool call_internal)
 					else
 					{
 						//fell off the tree -- not found 
-						cout << in_key << "0";
+						cout << in_key << "0\n";
 						done = true;
 						found = false;
 					}
@@ -170,6 +181,16 @@ bool BST::_search(string in_key, bool call_internal)
 	}
 	return found;
 }
+
+void BST::_traverse(Node* in_node)
+{
+	if (in_node != nullptr)
+	{
+		cout << in_node->key << " " << in_node->counter; 
+
+	}
+}
+
 	/*
 	bool found = false; 
 	Node* currentNode; 

@@ -14,12 +14,14 @@ public:
 	void Insert(string input); 
 	void List(); 
 	void Search(string in_key); 
+	void Delete(string in_key);
 
 private: 
 	Node nodeStorage[100];
 	Node* rootNode; 
 	void _createRoot(string input);
-	bool _search(string in_key, bool call_internal); 
+	bool _search(string in_key, bool call_internal, bool call_delete); 
+	void _traverse(Node* current_node); 
 };
 
 
