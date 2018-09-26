@@ -22,7 +22,7 @@ void BST::Insert(string in_key)
 	//need to search first 
 	found = _search(in_key, true);
 	//if not found, need to make a new node 
-	if (found = false) 
+	if (found == false) 
 	{
 		if (rootNode != nullptr)
 		{
@@ -31,7 +31,7 @@ void BST::Insert(string in_key)
 			{
 				if (in_key > currentNode->key)
 				{
-					if (currentNode->rightChild = nullptr)
+					if (currentNode->rightChild == nullptr)
 					{
 						//this is empty spot
 						Node newNode(in_key, currentNode); 
@@ -52,7 +52,7 @@ void BST::Insert(string in_key)
 				}
 				else if (in_key < currentNode->key)
 				{
-					if (currentNode->leftChild = nullptr)
+					if (currentNode->leftChild == nullptr)
 					{
 						//this is an empty spot
 						Node newNode(in_key, currentNode); 
@@ -98,64 +98,73 @@ void BST::Search(string in_key)
 //private methods 
 void BST::_createRoot(string input) 
 {
+	cout << "creating root node" << input; 
 	this->rootNode = new Node(input); 
 }
 
 bool BST::_search(string in_key, bool call_internal)
 {
+	cout << "Searching..."; 
 	bool done = false;
-	bool found;
+	bool found = false; 
 	Node* currentNode;
 	if (rootNode != nullptr)
 	{
 		currentNode = rootNode;
 		while (done == false)
 		{
-			if (currentNode->key == in_key)
+			if (currentNode)
 			{
-				//found node
-				if (call_internal == true)
+				if (currentNode->key == in_key)
 				{
-					//called from insert method, so add 1 to found node 
-					currentNode->counter = currentNode->counter + 1;
-					done = true;
-					found = true;
+					//found node
+					if (call_internal == true)
+					{
+						//called from insert method, so add 1 to found node 
+						currentNode->counter = currentNode->counter + 1;
+						done = true;
+						found = true;
+					}
+					else
+					{
+						//called from search command 
+						cout << in_key << currentNode->counter;
+						done = true;
+						found = true;
+					}
 				}
-				else
+				else if (in_key > currentNode->key)
 				{
-					//called from search command 
-					cout << in_key << currentNode->counter;
-					done = true;
-					found = true;
+					if (currentNode->rightChild != nullptr)
+					{
+						currentNode = currentNode->rightChild;
+					}
+					else
+					{
+						//fell off tree -- not found 
+						cout << in_key << "0";
+						done = true;
+						found = false;
+					}
+				}
+				else if (in_key < currentNode->key)
+				{
+					if (currentNode->rightChild != nullptr)
+					{
+						currentNode = currentNode->rightChild;
+					}
+					else
+					{
+						//fell off the tree -- not found 
+						cout << in_key << "0";
+						done = true;
+						found = false;
+					}
 				}
 			}
-			else if (in_key > currentNode->key)
+			else 
 			{
-				if (currentNode->rightChild != nullptr)
-				{
-					currentNode = currentNode->rightChild;
-				}
-				else
-				{
-					//fell off tree -- not found 
-					cout << in_key << "0";
-					done = true;
-					found = false;
-				}
-			}
-			else if (in_key < currentNode->key)
-			{
-				if (currentNode->rightChild != nullptr)
-				{
-					currentNode = currentNode->rightChild;
-				}
-				else
-				{
-					//fell off the tree -- not found 
-					cout << in_key << "0";
-					done = true;
-					found = false;
-				}
+				cout << "Hit the garbage \n"; 
 			}
 		}
 	}
