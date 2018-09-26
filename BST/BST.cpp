@@ -36,11 +36,11 @@ void BST::Insert(string in_key)
 						//this is empty spot
 						Node newNode(in_key, currentNode); 
 
-						//set child pointer to the new node
-						currentNode->rightChild = &newNode; 
 						//store the new node
 						nodeStorage[nodeStorage_index] = newNode; 
+						currentNode->rightChild = &nodeStorage[nodeStorage_index]; 
 						nodeStorage_index++; 
+						
 
 						done = true; 
 					}
