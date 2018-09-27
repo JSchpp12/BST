@@ -97,7 +97,8 @@ void BST::Search(string in_key)
 
 void BST::Delete(string in_key)
 {
-
+	bool returned; 
+	returned = _search(in_key, false, true); 
 }
 
 //private methods 
@@ -190,63 +191,3 @@ void BST::_traverse(Node* in_node)
 
 	}
 }
-
-	/*
-	bool found = false; 
-	Node* currentNode; 
-	if (rootNode != nullptr)
-	{
-		currentNode = rootNode; 
-
-		while (found == false)
-		{
-			if (currentNode->key == in_key)
-			{
-				cout << currentNode->key << " " << currentNode->counter; 
-				found = true; 
-			}
-			else
-			{
-				if (currentNode->leftChild != nullptr)
-				{
-					//check the left child first 
-					currentNode = currentNode->leftChild;
-
-					if (currentNode->key == in_key)
-					{
-						cout << currentNode->key << " " << currentNode->counter;
-						found = true;
-					}
-					else
-					{
-						//check the right child
-						if (currentNode->rightChild != nullptr)
-						{
-							currentNode = currentNode->rightChild;
-							if (currentNode->key == in_key)
-							{
-
-							}
-						}
-						else 
-						{
-							//right child is null so reached end of this branch 
-							cout << in_key << " " << "0"; 
-						}
-					}
-				}
-				else
-				{
-					//hit bottom of tree so nothing is found
-					cout << in_key << " " << "0";
-					found = true;
-				}
-			}
-		}
-	}
-	else
-	{
-		cout << "Tree is empty"; 
-	}
-	*/ 
-//}
