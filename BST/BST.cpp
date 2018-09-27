@@ -92,7 +92,7 @@ void BST::List()
 
 void BST::Search(string in_key)
 {
-	_search(in_key, false, false); 
+	_search(in_key,false, false); 
 }
 
 void BST::Delete(string in_key)
@@ -103,12 +103,22 @@ void BST::Delete(string in_key)
 
 void BST::Minimum(string in_key)
 {
-	_getRange(in_key, false); 
+	_getRange(false); 
 }
 
 void BST::Maximum(string in_key)
 {
-	_getRange(in_key, true); 
+	_getRange(true); 
+}
+
+void BST::Next()
+{
+
+}
+
+void BST::Previous()
+{
+
 }
 
 //private methods 
@@ -143,6 +153,7 @@ bool BST::_search(string in_key, bool call_internal, bool call_delete)
 					}
 					else if (call_delete == true)
 					{
+						//called from delete method, so subtract 1 from found node 
 						currentNode->counter--; 
 						done = true; 
 						found = true; 
@@ -173,6 +184,7 @@ bool BST::_search(string in_key, bool call_internal, bool call_delete)
 				{
 					if (currentNode->rightChild != nullptr)
 					{
+						//set to next node in tree and rerun above code with this new node 
 						currentNode = currentNode->rightChild;
 					}
 					else
@@ -186,7 +198,8 @@ bool BST::_search(string in_key, bool call_internal, bool call_delete)
 			}
 			else 
 			{
-				cout << "Hit the garbage \n"; 
+				//Hopefully never hit this 
+				cout << "Unknown Error! \n"; 
 			}
 		}
 	}
@@ -202,7 +215,7 @@ void BST::_traverse(Node* in_node)
 	}
 }
 
-void BST::_getRange(string in_key, bool mM)
+void BST::_getRange(bool mM)
 {
 	//using mM to tell if this should search for the minimum or maximum 
 	//false for minimum
