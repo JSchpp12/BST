@@ -101,6 +101,16 @@ void BST::Delete(string in_key)
 	returned = _search(in_key, false, true); 
 }
 
+void BST::Minimum(string in_key)
+{
+	_getRange(in_key, false); 
+}
+
+void BST::Maximum(string in_key)
+{
+	_getRange(in_key, true); 
+}
+
 //private methods 
 void BST::_createRoot(string input) 
 {
@@ -154,7 +164,7 @@ bool BST::_search(string in_key, bool call_internal, bool call_delete)
 					else
 					{
 						//fell off tree -- not found 
-						cout << in_key << "0\n";
+						cout << in_key << " 0\n";
 						done = true;
 						found = false;
 					}
@@ -189,5 +199,55 @@ void BST::_traverse(Node* in_node)
 	{
 		cout << in_node->key << " " << in_node->counter; 
 
+	}
+}
+
+void BST::_getRange(string in_key, bool mM)
+{
+	//using mM to tell if this should search for the minimum or maximum 
+	//false for minimum
+	//true for maximum
+
+	Node* currentNode; 
+	bool complete = false; 
+
+	if (rootNode != nullptr)
+	{
+		currentNode = rootNode; 
+		while (complete == false)
+		{
+			if (mM == false)
+			{
+				if (currentNode->leftChild != nullptr)
+				{
+					currentNode = currentNode->leftChild;
+				}
+				else
+				{
+					//fell off the tree 
+					//currentNode is the minimum 
+					cout << "Minimum: " << currentNode->key << " " << currentNode->counter;
+					complete = true;
+				}
+			}
+			else
+			{
+				if (currentNode->rightChild != nullptr)
+				{
+					currentNode = currentNode->rightChild; 
+				}
+				else
+				{
+					//fell off the tree
+					//currentNode is the minimum 
+					cout << "Maximum: " << currentNode->key << " " << currentNode->counter; 
+				}
+			}
+		}
+	}
+	else
+	{
+		//tree is empty 
+		cout << "Tree is empty\n";
 	}
 }
