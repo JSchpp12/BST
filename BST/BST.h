@@ -14,8 +14,8 @@ public:
 	void List(); 
 	void Search(string in_key); 
 	void Delete(string in_key);
-	void Minimum(string in_key); 
-	void Maximum(string in_key); 
+	void Minimum(); 
+	void Maximum(); 
 	void Next(); 
 	void Previous(); 
 

@@ -102,12 +102,12 @@ void BST::Delete(string in_key)
 	returned = _search(in_key, false, true); 
 }
 
-void BST::Minimum(string in_key)
+void BST::Minimum()
 {
 	_getRange(false); 
 }
 
-void BST::Maximum(string in_key)
+void BST::Maximum()
 {
 	_getRange(true); 
 }
