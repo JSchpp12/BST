@@ -55,10 +55,11 @@ void BST::Insert(string in_key)
 					if (currentNode->leftChild == nullptr)
 					{
 						//this is an empty spot
-						Node newNode(in_key, currentNode); 
+						Node newNode(in_key, currentNode);
+
 						//store new node in array 
-						currentNode->leftChild = &newNode; 
 						nodeStorage[nodeStorage_index] = newNode; 
+						currentNode->leftChild = &nodeStorage[nodeStorage_index]; 
 						nodeStorage_index++; 
 
 						done = true; 
@@ -254,6 +255,7 @@ void BST::_getRange(bool mM)
 					//fell off the tree
 					//currentNode is the minimum 
 					cout << "Maximum: " << currentNode->key << " " << currentNode->counter; 
+					complete = true; 
 				}
 			}
 		}
