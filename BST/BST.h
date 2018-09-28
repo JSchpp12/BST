@@ -16,10 +16,11 @@ public:
 	void Delete(string in_key);
 	void Minimum(); 
 	void Maximum(); 
-	void Next(); 
-	void Previous(); 
+	void Next(string in_key); 
+	void Previous(string in_key); 
 
 private: 
+	Node* currentFocus; 
 	Node nodeStorage[100];
 	Node* rootNode; 
 	int nodeStorage_index = 0; 
@@ -27,6 +28,7 @@ private:
 	bool _search(string in_key, bool call_internal, bool call_delete); 
 	void _traverse(Node* current_node); 
 	void _getRange(bool mM); 
+	Node* _getNode(string in_key); 
 };
 
 

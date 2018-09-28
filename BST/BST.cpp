@@ -40,7 +40,6 @@ void BST::Insert(string in_key)
 						nodeStorage[nodeStorage_index] = newNode; 
 						currentNode->rightChild = &nodeStorage[nodeStorage_index]; 
 						nodeStorage_index++; 
-						
 
 						done = true; 
 					}
@@ -112,12 +111,31 @@ void BST::Maximum()
 	_getRange(true); 
 }
 
-void BST::Next()
+void BST::Next(string in_key)
 {
+	Node* currentNode; 
+	Node* parentNode;
+	currentNode = _getNode(in_key); 
 
+	if (currentFocus != nullptr)
+	{
+		this->Minimum();
+	}
+	else
+	{
+		//currentNode = _getNode(in_key);
+
+		parentNode = currentNode->parent; 
+		while ((parentNode != nullptr) and (currentNode == parentNode->rightChild))
+		{
+			currentNode = parentNode;
+			parentNode = parentNode->parent; 
+		}
+		cout << parentNode->key << endl;
+	}
 }
 
-void BST::Previous()
+void BST::Previous(string in_key)
 {
 
 }
@@ -211,8 +229,13 @@ void BST::_traverse(Node* in_node)
 {
 	if (in_node != nullptr)
 	{
-		cout << in_node->key << " " << in_node->counter; 
-
+		_traverse(in_node->leftChild); 
+		cout << in_node->key << " " << in_node->counter << "\n"; 
+		_traverse(in_node->rightChild); 
+	}
+	else
+	{
+		return; 
 	}
 }
 
@@ -264,5 +287,17 @@ void BST::_getRange(bool mM)
 	{
 		//tree is empty 
 		cout << "Tree is empty\n";
+	}
+}
+
+Node* BST::_getNode(string in_key)
+{
+	Node* foundNode; 
+	for (int i = 0; i < 100; i++) {
+		if (nodeStorage[i].key == in_key)
+		{
+			foundNode = &nodeStorage[i]; 
+			return foundNode; 
+		}
 	}
 }
