@@ -1,6 +1,8 @@
+//Jacob Schaupp 
+//EECS 2510 Non Linear 
+//09-28-2018
 #include "pch.h"
 #include "BST.h"
-
 
 BST::BST()
 {
@@ -115,30 +117,87 @@ void BST::Next(string in_key)
 {
 	Node* currentNode; 
 	Node* parentNode;
-	currentNode = _getNode(in_key); 
+	currentNode = _getNode(in_key);
 
-	if (currentFocus != nullptr)
+	if (currentNode != nullptr)
 	{
-		this->Minimum();
+		if (currentNode->rightChild != nullptr)
+		{
+			currentNode = currentNode->rightChild; 
+
+			while (currentNode->leftChild != nullptr)
+			{
+				currentNode = currentNode->leftChild;
+			}
+			//currentNode will be successor once loop in complete 
+			cout << currentNode->key << "\n";
+		}
+		else if (currentNode->rightChild == nullptr)
+		{
+			while ((currentNode->rightChild == nullptr) or (currentNode != rootNode))
+			{
+				currentNode = currentNode->parent;
+			}
+			while (currentNode->leftChild != nullptr)
+			{
+				currentNode = currentNode->leftChild;
+			}
+			//after these loops, the successor will be the currentNode
+			cout << currentNode->key << "\n";
+		}
 	}
 	else
 	{
-		//currentNode = _getNode(in_key);
-
-		parentNode = currentNode->parent; 
-		while ((parentNode != nullptr) and (currentNode == parentNode->rightChild))
-		{
-			currentNode = parentNode;
-			parentNode = parentNode->parent; 
-		}
-		cout << parentNode->key << endl;
+		cout << "Tree is empty \n"; 
 	}
 }
 
 void BST::Previous(string in_key)
 {
+	bool done = false;
+	Node* currentNode;
+	if (rootNode != nullptr)
+	{
+		currentNode = _getNode(in_key);
 
+		if (currentNode != nullptr)
+		{
+			if (currentNode->leftChild != nullptr)
+			{
+				currentNode = currentNode->leftChild; 
+
+				while (currentNode->rightChild != nullptr)
+				{
+					currentNode = currentNode->rightChild;
+				}
+				//currentNode will be the predacessor 
+				cout << currentNode->key << "\n";
+			}
+			else if (currentNode->leftChild == nullptr)
+			{
+				//want it to stop climbing at the root node or when it finds a path with a left child 
+				while ((currentNode->leftChild == nullptr) and (currentNode != rootNode))
+				{
+					currentNode = currentNode->parent;
+				}
+				while (currentNode->rightChild != nullptr)
+				{
+					currentNode = currentNode->rightChild;
+				}
+				cout << currentNode->key << "\n";
+			}
+		}
+		else
+		{
+			cout << "Tree is empty \n";
+		}
+	}
+	else
+	{
+		cout << "Tree is empty \n"; 
+	}
 }
+
 
 //private methods 
 void BST::_createRoot(string input) 
@@ -149,7 +208,7 @@ void BST::_createRoot(string input)
 
 bool BST::_search(string in_key, bool call_internal, bool call_delete)
 {
-	cout << "Searching..."; 
+	//cout << "Searching..."; 
 	bool done = false;
 	bool found = false; 
 	Node* currentNode;
@@ -180,7 +239,7 @@ bool BST::_search(string in_key, bool call_internal, bool call_delete)
 					else 
 					{
 						//called from search command 
-						cout << in_key << currentNode->counter;
+						cout << in_key << currentNode->counter << "\n"; 
 						done = true;
 						found = true;
 					}
@@ -263,7 +322,7 @@ void BST::_getRange(bool mM)
 				{
 					//fell off the tree 
 					//currentNode is the minimum 
-					cout << "Minimum: " << currentNode->key << " " << currentNode->counter;
+					cout << "Minimum: " << currentNode->key << " " << currentNode->counter << "\n";
 					complete = true;
 				}
 			}
@@ -277,7 +336,7 @@ void BST::_getRange(bool mM)
 				{
 					//fell off the tree
 					//currentNode is the minimum 
-					cout << "Maximum: " << currentNode->key << " " << currentNode->counter; 
+					cout << "Maximum: " << currentNode->key << " " << currentNode->counter << "\n"; 
 					complete = true; 
 				}
 			}
@@ -293,11 +352,19 @@ void BST::_getRange(bool mM)
 Node* BST::_getNode(string in_key)
 {
 	Node* foundNode; 
-	for (int i = 0; i < 100; i++) {
-		if (nodeStorage[i].key == in_key)
+	if (rootNode->key == in_key)
+	{
+		return rootNode; 
+	}
+	else
+	{
+		for (int i = 0; i < 100; i++)
 		{
-			foundNode = &nodeStorage[i]; 
-			return foundNode; 
+			if (nodeStorage[i].key == in_key)
+			{
+				return &nodeStorage[i];
+
+			}
 		}
 	}
 }

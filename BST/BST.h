@@ -1,3 +1,6 @@
+//Jacob Schaupp 
+//EECS 2510 Non Linear 
+//09-28-2018
 #pragma once
 #include <string>
 #include <iostream>
